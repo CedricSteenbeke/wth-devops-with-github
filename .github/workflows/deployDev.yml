@@ -1,0 +1,41 @@
+# This is a basic workflow to help you get started with Actions
+
+name: IaC-Dev
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    paths:
+      - 'deplouDev.yml'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Deploy Azure Resource Manager (ARM) Template
+        uses: Azure/arm-deploy@v1
+        with:
+          # Provide the scope of the deployment. Valid values are: 'resourcegroup', 'managementgroup', 'subscription'
+          scope: resourcegroup
+          # Override the Subscription Id set by Azure Login.
+          subscriptionId: 313c851d-52c1-4bf7-a9ee-ce08cd7627dd 
+          # Provide the name of a resource group, only required for resource Group deployments.
+          resourceGroupName: # wtf-github-demo
+          # Specify the path or URL to the Azure Resource Manager template.
+          template: ArmTemplates/container-webapp-template.json
+          # Incremental (only add resources to resource group) or Complete (remove extra resources from resource group) or Validate (only validates the template).
+          deploymentMode: Incremental
+          # Specifies the name of the resource group deployment to create.
+          deploymentName: wtf-github-demo
+          # Specify whether to fail the action if some data is written to stderr stream of az cli. Valid values are: true, false
+          failOnStdErr: # optional, default is true
+                echo test, and deploy your project.
