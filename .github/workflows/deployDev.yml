@@ -38,7 +38,7 @@ jobs:
           # Provide the name of a resource group, only required for resource Group deployments.
           resourceGroupName: ${{ secrets.AZURE_RG }}
           # Specify the path or URL to the Azure Resource Manager template.
-          template: ArmTemplates/container-webapp-template.json
+          template: ArmTemplates/container-webapp-template-dev.json
           # Incremental (only add resources to resource group) or Complete (remove extra resources from resource group) or Validate (only validates the template).
           deploymentMode: Incremental
 
